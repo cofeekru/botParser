@@ -2,9 +2,7 @@ package tg_bot
 
 import (
 	"context"
-
 	"log"
-
 	"os"
 
 	"github.com/mymmrac/telego"
@@ -20,10 +18,10 @@ type unit struct {
 	URL   string `json:"url"`
 }
 
-func BotStart(botToken string, parserHOST string, parserPOST string) {
+func BotStart() {
 	ctx := context.Background()
 
-	bot, err := telego.NewBot(botToken)
+	bot, err := telego.NewBot(os.Getenv("TOKEN"))
 
 	if err != nil {
 		log.Println("Error to start bot", err)
@@ -38,6 +36,6 @@ func BotStart(botToken string, parserHOST string, parserPOST string) {
 		log.Println("Error to get updates")
 	}
 
-	handlerQuery(bot, updates, parserHOST, parserPOST)
+	handlerQuery(bot, updates)
 
 }

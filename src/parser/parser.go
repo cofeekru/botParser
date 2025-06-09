@@ -10,7 +10,7 @@ import (
 )
 
 const (
-	host = "https://biggeek.ru"
+	hostBigGeek = "https://biggeek.ru"
 )
 
 type unit struct {
@@ -28,7 +28,7 @@ func parser(url *url.URL) ([]byte, int) {
 		item := unit{
 			Name:  html.ChildText("a.catalog-card__title"),
 			Price: html.ChildText("b.cart-modal-count"),
-			URL:   host + html.ChildAttr("a.catalog-card__title", "href"),
+			URL:   hostBigGeek + html.ChildAttr("a.catalog-card__title", "href"),
 		}
 		items = append(items, item)
 	})
@@ -39,7 +39,7 @@ func parser(url *url.URL) ([]byte, int) {
 
 	})
 
-	err := collector.Visit(host + url.String())
+	err := collector.Visit(hostBigGeek + url.String())
 	if err != nil {
 		log.Println("Request is error.")
 		return nil, http.StatusNotFound

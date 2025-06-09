@@ -5,13 +5,14 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"os"
 
 	"github.com/mymmrac/telego"
 	th "github.com/mymmrac/telego/telegohandler"
 	tu "github.com/mymmrac/telego/telegoutil"
 )
 
-func handlerQuery(bot *telego.Bot, updates <-chan telego.Update, parserHOST string, parserPORT string) {
+func handlerQuery(bot *telego.Bot, updates <-chan telego.Update) {
 	bh, _ := th.NewBotHandler(bot, updates)
 	defer bh.Stop()
 
@@ -45,7 +46,7 @@ func handlerQuery(bot *telego.Bot, updates <-chan telego.Update, parserHOST stri
 
 	bh.Handle(func(ctx *th.Context, update telego.Update) error {
 		chatID := update.CallbackQuery.Message.GetChat().ID
-		host := parserHOST + ":" + parserPORT + update.CallbackQuery.Data
+		host := os.Getenv("HOST") + ":" + os.Getenv("PORT") + update.CallbackQuery.Data
 
 		response, err := http.Get(host)
 		if err != nil {

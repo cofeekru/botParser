@@ -3,6 +3,7 @@ package parser
 import (
 	"log"
 	"net/http"
+	"os"
 )
 
 func handler(response http.ResponseWriter, request *http.Request) {
@@ -11,14 +12,14 @@ func handler(response http.ResponseWriter, request *http.Request) {
 	response.Write(jsonResponse)
 }
 
-func ServerStart(HOST string, PORT string) {
-
+func ServerStart() {
+	port := os.Getenv("PORT")
 	server := &http.Server{
-		Addr:    ":" + PORT,
+		Addr:    ":" + port,
 		Handler: http.HandlerFunc(handler),
 	}
 
-	log.Println("Starting parser server at port" + PORT + "...")
+	log.Println("Starting parser server at port" + port + "...")
 	err := server.ListenAndServe()
 
 	if err != nil {
