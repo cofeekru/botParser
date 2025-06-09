@@ -9,8 +9,9 @@ import (
 )
 
 func main() {
+
 	godotenv.Load(".env")
-	parserPORT := os.Getenv("PORT")
+	var parserPORT = os.Getenv("PORT")
 	parserHOST := os.Getenv("HOST")
 	botToken := os.Getenv("TOKEN")
 

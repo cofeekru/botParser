@@ -14,7 +14,7 @@ func handler(response http.ResponseWriter, request *http.Request) {
 func ServerStart(HOST string, PORT string) {
 
 	server := &http.Server{
-		Addr:    PORT,
+		Addr:    ":" + PORT,
 		Handler: http.HandlerFunc(handler),
 	}
 
